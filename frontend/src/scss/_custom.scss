@@ -1,1 +1,14 @@
-// Here you can add other styles
+// Hack css core ui
+.sidebar{
+    background-color: #007FC9 ;
+
+    .nav-link.active {
+        background: #008bdc;
+        .nav-icon {
+            color: #ffdead;
+        }
+    }
+    .nav-link .nav-icon {
+        color: #ffdead;
+    }
+}
