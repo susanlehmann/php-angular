@@ -1,14 +1,14 @@
-import { CoreUIPage } from './app.po';
+import { AppPage } from './app.po';
 
-describe('core-ui App', function() {
-  let page: CoreUIPage;
+describe('test-ng4 App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new CoreUIPage();
+    page = new AppPage();
   });
 
-  it('should display footer containing creativeLabs', () => {
+  it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toContain('creativeLabs');
+    expect(page.getParagraphText()).toEqual('SB Admin BS4 Angular5');
   });
 });

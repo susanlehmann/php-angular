@@ -1,71 +1,52 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
-};
-
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthGuard, AuthService, TokenService, HttpcallService } from './shared';
 
-// Import containers
-import { DefaultLayoutComponent } from './containers';
 
-import { P404Component } from './views/error/404.component';
-import { P500Component } from './views/error/500.component';
-import { LoginComponent } from './views/login/login.component';
-import { RegisterComponent } from './views/register/register.component';
-
-const APP_CONTAINERS = [
-  DefaultLayoutComponent
-];
-
-import {
-  AppAsideModule,
-  AppBreadcrumbModule,
-  AppHeaderModule,
-  AppFooterModule,
-  AppSidebarModule,
-} from '@coreui/angular';
-
-// Import routing module
-import { AppRoutingModule } from './app.routing';
-
-// Import 3rd party components
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+// AoT requires an exported function for factories
+export function createTranslateLoader(http: HttpClient) {
+    // for development
+    // return new TranslateHttpLoader(http, '/start-angular/SB-Admin-BS4-Angular-5/master/dist/assets/i18n/', '.json');
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AppAsideModule,
-    AppBreadcrumbModule.forRoot(),
-    AppFooterModule,
-    AppHeaderModule,
-    AppSidebarModule,
-    PerfectScrollbarModule,
-    BsDropdownModule.forRoot(),
-    TabsModule.forRoot(),
-    ChartsModule
-  ],
-  declarations: [
-    AppComponent,
-    ...APP_CONTAINERS,
-    P404Component,
-    P500Component,
-    LoginComponent,
-    RegisterComponent
-  ],
-  providers: [{
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  }],
-  bootstrap: [ AppComponent ]
+    imports: [
+        CommonModule,
+        BrowserModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        SnotifyModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: createTranslateLoader,
+                deps: [HttpClient]
+            }
+        }),
+        AppRoutingModule
+    ],
+    declarations: [AppComponent],
+    providers: [
+        AuthGuard,
+        AuthService,
+        TokenService,
+        HttpcallService,
+        { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+        SnotifyService
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
