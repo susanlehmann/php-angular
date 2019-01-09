@@ -1,0 +1,35 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img class="user-avatar" src="assets/images/logo.png" width="150px" />
+            <h1>ADMIN - EDUCLANGS</h1>
+            <form #signupForm=ngForm (ngSubmit)="onSubmit()">
+
+                <div class="form-content">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control input-underline input-lg" name="name" [(ngModel)]="form.name" id="" placeholder="Full Name" required>
+                        <div class="alert alert-danger" [hidden]="!error.name"> {{ error.name }} </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" name="email" [(ngModel)]="form.email" class="form-control input-underline input-lg" id="" placeholder="Email" required>
+                        <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name="password" [(ngModel)]="form.password" class="form-control input-underline input-lg" id="" placeholder="Password" required>
+                        <div class="alert alert-danger" [hidden]="!error.password"> {{ error.password }} </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password_confirmation" [(ngModel)]="form.password_confirmation" class="form-control input-underline input-lg" id="" placeholder="Repeat Password" required>
+                        <div class="alert alert-danger" [hidden]="!error.password_confirmation"> {{ error.password_confirmation }} </div>
+                    </div>
+                </div>
+                 <!-- <a class="btn rounded-btn" [routerLink]="['/dashboard']" [disable]="!signupForm.valid" > Register </a>&nbsp; -->
+               <button type="submit" class="btn rounded-btn"  [disabled]="!signupForm.valid" > Register </button> &nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
+            </form>
+        </div>
+    </div>
+</div>
