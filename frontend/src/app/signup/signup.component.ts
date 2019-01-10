@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../router.animations';
-import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
-
-import { AuthService } from './../shared/services/auth.service';
-import { TokenService } from './../shared/services/token.service';
-import { HttpcallService } from './../shared/services/httpcall.service';
-
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-signup',
@@ -15,44 +9,12 @@ import { HttpcallService } from './../shared/services/httpcall.service';
     animations: [routerTransition()]
 })
 export class SignupComponent implements OnInit {
-
-    public form = {
-        email: null,
-        name: null,
-        password: null,
-        password_confirmation: null
-      };
-
-    public error = [];
-
-
-    constructor(
-        private httpcall: HttpcallService,
-        private Token: TokenService,
-        private router: Router,
-        private auth: AuthService
-
-    ) {}
+    constructor(private translate: TranslateService) {
+        this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de', 'zh-CHS']);
+        this.translate.setDefaultLang('en');
+        const browserLang = this.translate.getBrowserLang();
+        this.translate.use(browserLang.match(/en|fr|ur|es|it|fa|de|zh-CHS/) ? browserLang : 'en');
+    }
 
     ngOnInit() {}
-
-    onSubmit() {
-        // console.log(this.form);
-        this.httpcall.signup(this.form).subscribe(
-          data => this.handleResponse(data),
-          error => this.handleError(error)
-        );
-      }
-
-      handleResponse(data) {
-
-        this.Token.handle(data.access_token, name);
-        this.auth.changeAuthStatus(true);
-        this.router.navigateByUrl('/login');
-
-      }
-
-      handleError(error) {
-        this.error = error.error.errors;
-    }
 }

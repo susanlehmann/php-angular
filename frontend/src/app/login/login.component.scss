@@ -10,7 +10,6 @@ $topnav-background-color: #222;
     bottom: 0;
     overflow: auto;
     background: $topnav-background-color;
-    // background: gray;
     text-align: center;
     color: #fff;
     padding: 3em;
@@ -93,16 +92,4 @@ $topnav-background-color: #222;
         border-radius: 50%;
         border: 2px solid #fff;
     }
-
-    .ng-invalid:not(form){
-        border-left:5px solid red;
-    }
-
-    .ng-valid:not(form){
-        border-left:5px solid green;
-    }
-
-
-
-
 }

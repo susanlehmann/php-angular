@@ -2,27 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { AuthService, TokenService } from '../../../shared';
-import { HttpcallService } from './../../../shared/services/httpcall.service';
-
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-    pushRightClass: string = 'push-right';
+    public pushRightClass: string;
 
-    user: string =  this.token.getUser();
-    // user = this.token.getUser();
-
-    constructor(
-        private translate: TranslateService,
-        public router: Router,
-        public httpcall: HttpcallService,
-        public auth: AuthService,
-        public token: TokenService
-    ) {
+    constructor(private translate: TranslateService, public router: Router) {
 
         this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de', 'zh-CHS']);
         this.translate.setDefaultLang('en');
@@ -41,14 +29,8 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-         // this.token.payload(get())   ==> Return Second token ??
-         // console.log(this.token.payload(this.token.get()));
-         console.log(this.token.getUser());
-
-
+        this.pushRightClass = 'push-right';
     }
-
-
 
     isToggled(): boolean {
         const dom: Element = document.querySelector('body');
@@ -65,16 +47,9 @@ export class HeaderComponent implements OnInit {
         dom.classList.toggle('rtl');
     }
 
-
-
     onLoggedout() {
-        // localStorage.removeItem('isLoggedin');
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
         localStorage.removeItem('isLoggedin');
     }
-
-
 
     changeLang(language: string) {
         this.translate.use(language);

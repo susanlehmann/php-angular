@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerTransition } from '../../router.animations';
-import { SnotifyService } from 'ng-snotify';
+// import { SnotifyService } from 'ng-snotify';
 
 import { HttpcallService } from './../../shared/services/httpcall.service';
 
@@ -18,7 +18,7 @@ export class RequestResetComponent implements OnInit {
 
   constructor(
       private httcall: HttpcallService,
-      private notify: SnotifyService
+    //   private notify: SnotifyService
     ) { }
 
   ngOnInit() {
@@ -27,7 +27,7 @@ export class RequestResetComponent implements OnInit {
   onSubmit() {
       this.httcall.sendPasswordResetLink(this.form).subscribe(
           data => this.handleResponse(data),
-          error => this.notify.error(error.error.error)
+        //   error => this.notify.error(error.error.error)
       );
   }
 
