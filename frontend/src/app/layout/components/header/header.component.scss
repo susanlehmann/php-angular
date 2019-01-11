@@ -1,9 +1,16 @@
-$topnav-background-color: #222;
+$topnav-background-color: #fff;
 :host {
     .navbar {
         background-color: $topnav-background-color;
+        border-bottom: 1px solid #c2cfd6;
         .navbar-brand {
-            color: #fff;
+            display: inline-block;
+            width: 190px;
+            padding: 1rem;
+            background-image: url(../../../../assets/images/logo.jpg);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 70px auto;
         }
         .nav-item > a {
             color: #999;
