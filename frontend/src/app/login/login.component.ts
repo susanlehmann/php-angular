@@ -9,6 +9,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { TokenService } from '../shared/services/token.service';
 import { HttpcallService } from '../shared/services/httpcall.service';
 import { ngxLoadingAnimationTypes, NgxLoadingComponent } from 'ngx-loading';
+// import {SnotifyService, SnotifyPosition, SnotifyToastConfig} from 'ng-snotify';
 const PrimaryWhite = '#ffffff';
 const SecondaryGrey = '#ccc';
 const PrimaryRed = '#dd0031';
@@ -20,6 +21,22 @@ const SecondaryBlue = '#006ddd';
     animations: [routerTransition()]
 })
 export class LoginComponent implements OnInit {
+ // public style = 'material';
+ // public title = 'Snotify title!';
+ // public body = 'Lorem ipsum dolor sit amet!';
+ // public timeout = 3000;
+ // public position: SnotifyPosition = SnotifyPosition.rightBottom;
+ // public progressBar = true;
+ // public closeClick = true;
+ // public newTop = true;
+ // public filterDuplicates = false;
+ // public backdrop = -1;
+ // public dockMax = 8;
+ // public blockMax = 6;
+ // public pauseHover = true;
+ // public titleMaxLength = 15;
+ // public bodyMaxLength = 80;
+
   @ViewChild('ngxLoading') ngxLoadingComponent: NgxLoadingComponent;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public primaryColour = PrimaryRed;
@@ -38,12 +55,34 @@ export class LoginComponent implements OnInit {
         private httpcall: HttpcallService,
         private Token: TokenService,
         private Auth: AuthService,
+        // private snotifyService: SnotifyService
         ) {
             this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de', 'zh-CHS']);
             this.translate.setDefaultLang('en');
             const browserLang = this.translate.getBrowserLang();
             this.translate.use(browserLang.match(/en|fr|ur|es|it|fa|de|zh-CHS/) ? browserLang : 'en');
     }
+
+  // getConfig(): SnotifyToastConfig {
+  //   this.snotifyService.setDefaults({
+  //     global: {
+  //       newOnTop: this.newTop,
+  //       maxAtPosition: this.blockMax,
+  //       maxOnScreen: this.dockMax,
+  //       filterDuplicates: this.filterDuplicates
+  //     }
+  //   });
+  //   return {
+  //     bodyMaxLength: this.bodyMaxLength,
+  //     titleMaxLength: this.titleMaxLength,
+  //     backdrop: this.backdrop,
+  //     position: this.position,
+  //     timeout: this.timeout,
+  //     showProgressBar: this.progressBar,
+  //     closeOnClick: this.closeClick,
+  //     pauseOnHover: this.pauseHover
+  //   };
+  // }
 
     ngOnInit() {}
 
@@ -63,6 +102,7 @@ export class LoginComponent implements OnInit {
       handleResponse(data) {
         this.Token.handle(data.access_token, data.user);
         this.Auth.changeAuthStatus(true);
+        // this.snotifyService.success(this.body, this.title, this.getConfig());
         localStorage.setItem('isLoggedin', 'true');
         this.loading = true;
         this.router.navigateByUrl('/dashboard');
