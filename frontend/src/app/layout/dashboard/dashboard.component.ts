@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-
+import { ViewChild } from '@angular/core'
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',

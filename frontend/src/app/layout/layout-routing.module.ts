@@ -7,6 +7,8 @@ const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
+            // Users
+            { path: 'users', loadChildren: './users/users.module#UsersModule' },
             { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
             { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
