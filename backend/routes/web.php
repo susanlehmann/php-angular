@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('frontend');
 });
 Route::get('list-user', 'Admin\AdminController@getlistuser');
+Route::post('delete', 'Admin\AdminController@delete');

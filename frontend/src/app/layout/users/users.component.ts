@@ -46,4 +46,13 @@ export class UsersComponent implements OnInit {
 		    this.listusers = listusers.list_user;
 		});
 	}
+
+	dalete_user(id) {
+		// console.log('Get Products and Update Table');
+		return this.http.post('http://localhost:8000/delete',{'id':id})
+		.subscribe((listusers:any) => {
+			// console.log(listusers.list_user);
+		 //    this.listusers = listusers.list_user;
+		});
+	}
 }
