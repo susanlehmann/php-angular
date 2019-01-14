@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { routerTransition } from '../../router.animations';
+import { NgxTuiCalendarComponent } from 'ngx-tui-calendar';
 
 @Component({
     selector: 'app-charts',
@@ -8,167 +9,25 @@ import { routerTransition } from '../../router.animations';
     animations: [routerTransition()]
 })
 export class ChartsComponent implements OnInit {
-    // bar chart
-    public barChartOptions: any = {
-        scaleShowVerticalLines: false,
-        responsive: true
-    };
-    public barChartLabels: string[] = [
-        '2006',
-        '2007',
-        '2008',
-        '2009',
-        '2010',
-        '2011',
-        '2012'
-    ];
-    public barChartType: string;
-    public barChartLegend: boolean;
+    defaultView: 'week';
+    useCreationPopup: true;
+    useDetailPopup: true;
+    calendars = [{'id': '1', 'name': 'My Calendar', 'checked': true, 'color': '#ffffff', 'bgColor': '#9e5fff', 'borderColor': '#9e5fff', 'dragBgColor': '#9e5fff'}, {'id': '2', 'name': 'Company', 'checked': true, 'color': '#ffffff', 'bgColor': '#00a9ff', 'borderColor': '#00a9ff', 'dragBgColor': '#00a9ff'}, {'id': '3', 'name': 'Family', 'checked': true, 'color': '#ffffff', 'bgColor': '#ff5583', 'borderColor': '#ff5583', 'dragBgColor': '#ff5583'}, {'id': '4', 'name': 'Friend', 'checked': true, 'color': '#ffffff', 'bgColor': '#03bd9e', 'borderColor': '#03bd9e', 'dragBgColor': '#03bd9e'}, {'id': '5', 'name': 'Travel', 'checked': true, 'color': '#ffffff', 'bgColor': '#bbdc00', 'borderColor': '#bbdc00', 'dragBgColor': '#bbdc00'}, {'id': '6', 'name': 'etc', 'checked': true, 'color': '#ffffff', 'bgColor': '#9d9d9d', 'borderColor': '#9d9d9d', 'dragBgColor': '#9d9d9d'}, {'id': '7', 'name': 'Birthdays', 'checked': true, 'color': '#ffffff', 'bgColor': '#ffbb3b', 'borderColor': '#ffbb3b', 'dragBgColor': '#ffbb3b'}, {'id': '8', 'name': 'National Holidays', 'checked': true, 'color': '#ffffff', 'bgColor': '#ff4040', 'borderColor': '#ff4040', 'dragBgColor': '#ff4040'}];
+    milestone: `<span class="calendar-font-icon ic-milestone-b"></span> <span style="background-color: ' + model.bgColor + '">' + model.title + '</span>'`;
+    allday = `<strong>00:00</strong> <span class="calendar-font-icon ic-user-b"></span> Za pat conepa.`;
+    time = `<strong>02:00</strong> <span class="calendar-font-icon ic-repeat-b"></span> Jujoj hi lo.`;
+    template = {milestone : this.milestone, allday : this.allday, time : this.time};
 
-    public barChartData: any[] = [
-        { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-        { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-    ];
-
-    // Doughnut
-    public doughnutChartLabels: string[] = [
-        'Download Sales',
-        'In-Store Sales',
-        'Mail-Order Sales'
-    ];
-    public doughnutChartData: number[] = [350, 450, 100];
-    public doughnutChartType: string;
-
-    // Radar
-    public radarChartLabels: string[] = [
-        'Eating',
-        'Drinking',
-        'Sleeping',
-        'Designing',
-        'Coding',
-        'Cycling',
-        'Running'
-    ];
-    public radarChartData: any = [
-        { data: [65, 59, 90, 81, 56, 55, 40], label: 'Series A' },
-        { data: [28, 48, 40, 19, 96, 27, 100], label: 'Series B' }
-    ];
-    public radarChartType: string;
-
-    // Pie
-    public pieChartLabels: string[] = [
-        'Download Sales',
-        'In-Store Sales',
-        'Mail Sales'
-    ];
-    public pieChartData: number[] = [300, 500, 100];
-    public pieChartType: string;
-
-    // PolarArea
-    public polarAreaChartLabels: string[] = [
-        'Download Sales',
-        'In-Store Sales',
-        'Mail Sales',
-        'Telesales',
-        'Corporate Sales'
-    ];
-    public polarAreaChartData: number[] = [300, 500, 100, 40, 120];
-    public polarAreaLegend: boolean;
-
-    public polarAreaChartType: string;
-
-    // lineChart
-    public lineChartData: Array<any> = [
-        { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-        { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-        { data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
-    ];
-    public lineChartLabels: Array<any> = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July'
-    ];
-    public lineChartOptions: any = {
-        responsive: true
-    };
-    public lineChartColors: Array<any> = [
-        {
-            // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-        },
-        {
-            // dark grey
-            backgroundColor: 'rgba(77,83,96,0.2)',
-            borderColor: 'rgba(77,83,96,1)',
-            pointBackgroundColor: 'rgba(77,83,96,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(77,83,96,1)'
-        },
-        {
-            // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-        }
-    ];
-    public lineChartLegend: boolean;
-    public lineChartType: string;
-
-    // events
-    public chartClicked(e: any): void {
-        // console.log(e);
-    }
-
-    public chartHovered(e: any): void {
-        // console.log(e);
-    }
-
-    public randomize(): void {
-        // Only Change 3 values
-        const data = [
-            Math.round(Math.random() * 100),
-            59,
-            80,
-            Math.random() * 100,
-            56,
-            Math.random() * 100,
-            40
-        ];
-        const clone = JSON.parse(JSON.stringify(this.barChartData));
-        clone[0].data = data;
-        this.barChartData = clone;
-        /**
-         * (My guess), for Angular to recognize the change in the dataset
-         * it has to change the dataset variable directly,
-         * so one way around it, is to clone the data, change it and then
-         * assign it;
-         */
-    }
+    @ViewChild('exampleCalendar') exampleCalendar: NgxTuiCalendarComponent;
 
     constructor() {}
 
+    onTuiCalendarCreate($event) {
+    /* at this point the calendar has been created and it's methods are available via the ViewChild defined above, so for example you can do: */
+    this.exampleCalendar.createSchedules([/* populated schedules array goes here*/]);
+    console.log('lul');
+    }
+
     ngOnInit() {
-        this.barChartType = 'bar';
-        this.barChartLegend = true;
-        this.doughnutChartType = 'doughnut';
-        this.radarChartType = 'radar';
-        this.pieChartType = 'pie';
-        this.polarAreaLegend = true;
-        this.polarAreaChartType = 'polarArea';
-        this.lineChartLegend = true;
-        this.lineChartType = 'line';
     }
 }
