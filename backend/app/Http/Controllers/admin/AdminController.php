@@ -11,4 +11,8 @@ class AdminController extends Controller
 	    $data['list_user'] = DB::table('users')->get();
 	    return response()->json($data);
 	}
+
+	public function delete(Request $request){
+		dd($request->id);
+	}
 }
