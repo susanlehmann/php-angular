@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {NgbModal, NgbModalRef, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { TasksService } from './tasks.service';
 @Component({
 selector: 'app-users',
 templateUrl: './users.component.html',
@@ -10,6 +11,15 @@ animations: [routerTransition()]
 })
 
 export class UsersComponent implements OnInit {
+    public form = {
+        email: null,
+        name: null,
+        password: null,
+        password_confirmation: null
+      };
+
+    public error = [];
+
 	closeResult: string;
 	listusers: any;
 	constructor(
@@ -46,6 +56,21 @@ export class UsersComponent implements OnInit {
 		    this.listusers = listusers.list_user;
 		});
 	}
+	
+    onSubmit() {
+        // console.log(this.form);
+        // this.httpcall.signup(this.form).subscribe(
+        //   data => this.handleResponse(data),
+        //   error => this.handleError(error)
+        // );
+      this.http.post('http://localhost:8000/signup',this.form,{
+              headers: new HttpHeaders({'Accept': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('token')})
+      }).subscribe((listusers:any) => {
+            console.log(listusers.list_user);
+              this.listusers = listusers.list_user;
+          });
+      }
 
 	dalete_user(id) {
 		// console.log('Get Products and Update Table');

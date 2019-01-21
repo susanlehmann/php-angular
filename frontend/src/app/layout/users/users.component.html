@@ -2,10 +2,9 @@
     <app-page-header [heading]="'Users'" [icon]="'fa-users'"></app-page-header>
     <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-sm btn-success" type="button" (click)="open(content)">Thêm mới</button>
 
                 <div class="card mb-3">
-                    <div class="card-header">List User</div>
+                    <div class="card-header">List User <button class="btn btn-sm btn-success pull-right" type="button" (click)="open(content)">Thêm mới</button></div>
                     <div class="card-body table-responsive">
                         <table class="table table-hover table-striped">
                             <thead>
@@ -43,24 +42,40 @@
 
     <ng-template #content let-modal>
       <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <h4 class="modal-title" id="modal-basic-title">Create User</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="dateOfBirth">Date of birth</label>
-            <div class="input-group">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+          <form #signupForm=ngForm (ngSubmit)="onSubmit()">
+
+              <div class="form-content">
+
+                  <div class="form-group">
+                      <input type="text" class="form-control input-underline input-lg" name="name" [(ngModel)]="form.name" id="" placeholder="Full Name" required>
+                      <div class="alert alert-danger" [hidden]="!error.name"> {{ error.name }} </div>
+                  </div>
+
+                  <div class="form-group">
+                      <input type="email" name="email" [(ngModel)]="form.email" class="form-control input-underline input-lg" id="" placeholder="Email" required>
+                      <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
+                  </div>
+
+                  <div class="form-group">
+                      <input type="password" name="password" [(ngModel)]="form.password" class="form-control input-underline input-lg" id="" placeholder="Password" required>
+                      <div class="alert alert-danger" [hidden]="!error.password"> {{ error.password }} </div>
+                  </div>
+                  <div class="form-group">
+                      <input type="password" name="password_confirmation" [(ngModel)]="form.password_confirmation" class="form-control input-underline input-lg" id="" placeholder="Repeat Password" required>
+                      <div class="alert alert-danger" [hidden]="!error.password_confirmation"> {{ error.password_confirmation }} </div>
+                  </div>
               </div>
-            </div>
-          </div>
-        </form>
+               <!-- <a class="btn rounded-btn" [routerLink]="['/dashboard']" [disable]="!signupForm.valid" > Register </a>&nbsp; -->
+             <button type="submit" class="btn rounded-btn pull-right"  [disabled]="!signupForm.valid" > Register </button>
+          </form>
       </div>
-      <div class="modal-footer">
+<!--       <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-      </div>
+      </div> -->
     </ng-template>

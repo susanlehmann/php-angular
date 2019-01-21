@@ -4,8 +4,14 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class HttpcallService {
   private baseUrl = 'http://localhost:8000/api';
+  private Url = 'http://localhost:8000';
 
   constructor(private http: HttpClient) { }
+
+  createuser(data) {
+    return this.http.post(`${this.Url}/signup`, data);
+  }
+
 
   signup(data) {
     return this.http.post(`${this.baseUrl}/signup`, data);
