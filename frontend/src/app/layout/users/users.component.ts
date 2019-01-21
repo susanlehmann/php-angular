@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {NgbModal, NgbModalRef, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { TasksService } from './tasks.service';
 @Component({
 selector: 'app-users',
 templateUrl: './users.component.html',
@@ -63,9 +62,11 @@ export class UsersComponent implements OnInit {
         //   data => this.handleResponse(data),
         //   error => this.handleError(error)
         // );
-      this.http.post('http://localhost:8000/signup',this.form,{
-              headers: new HttpHeaders({'Accept': 'application/json',
-              'Authorization': 'Bearer ' + localStorage.getItem('token')})
+      this.http.post('http://localhost:8000/api/create_user',this.form,{
+              headers: new HttpHeaders({
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+              })
       }).subscribe((listusers:any) => {
             console.log(listusers.list_user);
               this.listusers = listusers.list_user;
