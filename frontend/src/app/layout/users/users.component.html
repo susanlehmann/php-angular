@@ -41,40 +41,115 @@
     </div>
 
     <ng-template #content let-modal>
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Create User</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <div class="modal-header row">
+        <h4 class="modal-title col-sm-4 offset-sm-4">Create User</h4>
+        <button type="button" class="col-sm-4 close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-          <form #signupForm=ngForm (ngSubmit)="onSubmit()">
 
-              <div class="form-content">
+      <form #signupForm=ngForm (ngSubmit)="onSubmit()">
+      <div class="row modal-body">
+              <div class="col-md-12 form-content">
+                <div class="row">
+                  <div class="col-md-6">
+                      <div class="row form-group">
+                          <div class="col-sm-6">
+                            <label class="control-label">FIRST NAME</label>
+                            <input [(ngModel)]="form.firstName" type="text" class="form-control input-underline input-lg" name="first-name" placeholder="e.g. Jane" required>
+                            <div class="alert alert-danger" [hidden]="!error.name"> {{ error.name }} </div>
+                        </div>
+        
+                        <div class="col-sm-6">
+                            <label class="control-label">LAST NAME</label>
+                            <input [(ngModel)]="form.lastName" type="text" name="last-name" class="form-control input-underline input-lg" placeholder="e.g. Doe">
+                            <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
+                        </div>
+                    </div>
 
-                  <div class="form-group">
-                      <input type="text" class="form-control input-underline input-lg" name="name" [(ngModel)]="form.name" id="" placeholder="Full Name" required>
-                      <div class="alert alert-danger" [hidden]="!error.name"> {{ error.name }} </div>
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                        <label class="control-label">MOBILE NUMBER</label>
+                        <input [(ngModel)]="form.mobileNumber" type="number" name="number" class="form-control input-underline input-lg" placeholder="+84 91 234 56 78">
+                        <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label class="control-label">EMAIL</label>
+                            <input [(ngModel)]="form.email" type="email" name="email" class="form-control input-underline input-lg" placeholder="mail@example.com">
+                            <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label class="control-label">USER PERMISSION</label>
+                            <select [(ngModel)]="form.userPermission" name="user-permission" class="form-control">
+                                <option selected>No Access</option>
+                                <option>Basic</option>
+                                <option>Low</option>
+                                <option>Medium</option>
+                                <option>High</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-sm-12 btn-switch">
+                            <label class="switch">
+                                <input type="checkbox" [(ngModel)]="form.apointmentBooking" name="apointmentBooking">
+                                <span class="slider round"></span>
+                            </label>
+                            <label class="control-label">ENABLE APPOINTMENT BOOKINGS</label>
+                        </div>
+                    </div>
+
                   </div>
 
-                  <div class="form-group">
-                      <input type="email" name="email" [(ngModel)]="form.email" class="form-control input-underline input-lg" id="" placeholder="Email" required>
-                      <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
-                  </div>
+                  <div class="col-md-6">
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label class="control-label">STAFF TITLE</label>
+                            <input [(ngModel)]="form.staffTitle" type="text" name="staff-title" class="form-control input-underline input-lg"
+                                placeholder="Add staff title (i.e. Hairdresser) viewable in online booking only (optional)">
+                            <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
+                        </div>
+                    </div>
 
-                  <div class="form-group">
-                      <input type="password" name="password" [(ngModel)]="form.password" class="form-control input-underline input-lg" id="" placeholder="Password" required>
-                      <div class="alert alert-danger" [hidden]="!error.password"> {{ error.password }} </div>
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label class="control-label">NOTES</label>
+                            <textarea class="form-control" [(ngModel)]="form.notes" name="notes"
+                                placeholder="Add private notes viewable in staff settings only (optional)" rows="10"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-sm-6">
+                            <label class="control-label">EMPLOYMENT START DATE</label>
+                            <input [(ngModel)]="form.employmentStartDate" type="date" name="start-date" class="form-control">
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="control-label">EMPLOYMENT END DATE</label>
+                            <input [(ngModel)]="form.employmentEndDate" type="date" name="end-date" class="form-control">
+                        </div>
+                    </div>
+
                   </div>
-                  <div class="form-group">
-                      <input type="password" name="password_confirmation" [(ngModel)]="form.password_confirmation" class="form-control input-underline input-lg" id="" placeholder="Repeat Password" required>
-                      <div class="alert alert-danger" [hidden]="!error.password_confirmation"> {{ error.password_confirmation }} </div>
-                  </div>
+                  <div *ngIf="form.apointmentBooking">
+                        <label class="control-label">APPOINTMENT COLOR</label>
+                    </div>
+
               </div>
-               <!-- <a class="btn rounded-btn" [routerLink]="['/dashboard']" [disable]="!signupForm.valid" > Register </a>&nbsp; -->
-             <button type="submit" class="btn rounded-btn pull-right"  [disabled]="!signupForm.valid" > Register </button>
-          </form>
+            </div>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light pull-right" (click)="modal.dismiss('Cancel click')"> Cancel </button>
+        <button type="submit" class="btn btn-dark pull-right" [disabled]="!signupForm.valid" > Register </button>
+    </div>
+</form>
 <!--       <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
       </div> -->

@@ -1,3 +1,28 @@
+.modal-header .modal-title {
+  text-align: center;
+}
+
+.modal-header .close {
+  text-align: right;
+  margin: -1rem 0rem -1rem auto;
+  outline: none;
+}
+
+.control-label {
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.btn-switch .control-label {
+  margin-left: 10px;
+}
+
+.btn-switch {
+  display: flex;
+  align-items: center;
+}
+
 .switch {
   position: relative;
   display: inline-block;

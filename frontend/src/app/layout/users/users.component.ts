@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {NgbModal, NgbModalRef, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef, ModalDismissReasons, NgbModalOptions, NgbDatepicker} from '@ng-bootstrap/ng-bootstrap';
 @Component({
 selector: 'app-users',
 templateUrl: './users.component.html',
@@ -11,24 +11,34 @@ animations: [routerTransition()]
 
 export class UsersComponent implements OnInit {
     public form = {
-        email: null,
-        name: null,
-        password: null,
-        password_confirmation: null
+      firstName: null,
+      lastName: null,
+      staffTitle: null,
+      mobileNumber: null,
+      email: null,
+      userPermission: null,
+      notes: null,
+      employmentStartDate: null,
+      employmentEndDate: null,
+      apointmentBooking: null,
+      apointmentColor: null
       };
 
     public error = [];
 
+  modalOptions: NgbModalOptions;
 	closeResult: string;
-	listusers: any;
+  listusers: any;
+  
 	constructor(
 	private http: HttpClient,
 	private modal: NgbModal, 
 	) {
 		this.getProducts();
-	}
+  }
+  
   open(content: NgbModalRef) {
-    this.modal.open(content).result.then((result) => {
+    this.modal.open(content, this.modalOptions).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -44,7 +54,12 @@ export class UsersComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
 	ngOnInit() {
+    this.modalOptions = {
+      backdrop: 'static',
+      size: 'lg'
+    };
 	}
 	
 	getProducts() {
@@ -57,6 +72,8 @@ export class UsersComponent implements OnInit {
 	}
 	
     onSubmit() {
+      console.table(this.form);
+      return;
         // console.log(this.form);
         // this.httpcall.signup(this.form).subscribe(
         //   data => this.handleResponse(data),

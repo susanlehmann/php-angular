@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { UsersComponent } from './users.component';
 
 @NgModule({
-    imports: [CommonModule, UsersRoutingModule, PageHeaderModule,FormsModule,],
+    imports: [CommonModule, UsersRoutingModule, PageHeaderModule,FormsModule],
     declarations: [UsersComponent]
 })
 export class UsersModule { }
