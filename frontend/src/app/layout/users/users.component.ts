@@ -24,7 +24,7 @@ export class UsersComponent implements OnInit {
 	listusers: any;
 	constructor(
 	private http: HttpClient,
-	private modal: NgbModal,
+	private modal: NgbModal, 
 	) {
 		this.getProducts();
 	}
