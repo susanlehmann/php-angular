@@ -10,19 +10,7 @@ animations: [routerTransition()]
 })
 
 export class UsersComponent implements OnInit {
-    public form = {
-      firstName: null,
-      lastName: null,
-      staffTitle: null,
-      mobileNumber: null,
-      email: null,
-      userPermission: null,
-      notes: null,
-      employmentStartDate: null,
-      employmentEndDate: null,
-      apointmentBooking: null,
-      apointmentColor: null
-      };
+    public form: Staff = <Staff>{};
 
     public error = [];
 
@@ -98,4 +86,26 @@ export class UsersComponent implements OnInit {
 		 //    this.listusers = listusers.list_user;
 		});
 	}
+}
+
+interface Staff {
+    firstName: string;
+    lastName: string;
+    staffTitle: string;
+    mobileNumber: number;
+    email: string;
+    userPermission: string;
+    notes: string;
+    employmentStartDate: string;
+    employmentEndDate: string;
+    apointmentBooking: string;
+    apointmentColor: string
+    services: [];
+    commissions: Commission;
+}
+
+interface Commission {
+  service: string;
+  product: string;
+  voucherSale: string;
 }

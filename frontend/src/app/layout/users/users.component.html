@@ -41,7 +41,7 @@
     </div>
 
     <ng-template #content let-modal>
-      <div class="modal-header row">
+      <div class="modal-header">
         <h4 class="modal-title col-sm-4 offset-sm-4">Create User</h4>
         <button type="button" class="col-sm-4 close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
@@ -49,101 +49,143 @@
       </div>
 
       <form #signupForm=ngForm (ngSubmit)="onSubmit()">
-      <div class="row modal-body">
-              <div class="col-md-12 form-content">
-                <div class="row">
-                  <div class="col-md-6">
-                      <div class="row form-group">
-                          <div class="col-sm-6">
-                            <label class="control-label">FIRST NAME</label>
-                            <input [(ngModel)]="form.firstName" type="text" class="form-control input-underline input-lg" name="first-name" placeholder="e.g. Jane" required>
-                            <div class="alert alert-danger" [hidden]="!error.name"> {{ error.name }} </div>
-                        </div>
+      <div class="modal-body">
         
-                        <div class="col-sm-6">
-                            <label class="control-label">LAST NAME</label>
-                            <input [(ngModel)]="form.lastName" type="text" name="last-name" class="form-control input-underline input-lg" placeholder="e.g. Doe">
-                            <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
-                        </div>
+            <ngb-tabset>
+            <ngb-tab title="Details">
+                <ng-template ngbTabContent>
+                    
+                        <div class="col-md-12 form-content">
+                        <div class="row">
+                          <div class="col-md-6">
+                              <div class="row form-group">
+                                  <div class="col-sm-6">
+                                    <label class="control-label">FIRST NAME</label>
+                                    <input [(ngModel)]="form.firstName" type="text" class="form-control input-underline input-lg" name="first-name" placeholder="e.g. Jane" required>
+                                    <div class="alert alert-danger" [hidden]="!error.name"> {{ error.name }} </div>
+                                </div>
+                
+                                <div class="col-sm-6">
+                                    <label class="control-label">LAST NAME</label>
+                                    <input [(ngModel)]="form.lastName" type="text" name="last-name" class="form-control input-underline input-lg" placeholder="e.g. Doe">
+                                    <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
+                                </div>
+                            </div>
+        
+                            <div class="row form-group">
+                                <div class="col-sm-12">
+                                <label class="control-label">MOBILE NUMBER</label>
+                                <input [(ngModel)]="form.mobileNumber" type="number" name="number" class="form-control input-underline input-lg" placeholder="+84 91 234 56 78">
+                                <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
+                                </div>
+                            </div>
+        
+                            <div class="row form-group">
+                                <div class="col-sm-12">
+                                    <label class="control-label">EMAIL</label>
+                                    <input [(ngModel)]="form.email" type="email" name="email" class="form-control input-underline input-lg" placeholder="mail@example.com">
+                                    <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
+                                </div>
+                            </div>
+        
+                            <div class="row form-group">
+                                <div class="col-sm-12">
+                                    <label class="control-label">USER PERMISSION</label>
+                                    <select [(ngModel)]="form.userPermission" name="user-permission" class="form-control">
+                                        <option selected>No Access</option>
+                                        <option>Basic</option>
+                                        <option>Low</option>
+                                        <option>Medium</option>
+                                        <option>High</option>
+                                    </select>
+                                </div>
+                            </div>
+        
+                            <div class="row form-group">
+                                <div class="col-sm-12 btn-switch">
+                                    <label class="switch">
+                                        <input type="checkbox" [(ngModel)]="form.apointmentBooking" name="apointmentBooking">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <label class="control-label">ENABLE APPOINTMENT BOOKINGS</label>
+                                </div>
+                            </div>
+        
+                          </div>
+        
+                          <div class="col-md-6">
+                            <div class="row form-group">
+                                <div class="col-sm-12">
+                                    <label class="control-label">STAFF TITLE</label>
+                                    <input [(ngModel)]="form.staffTitle" type="text" name="staff-title" class="form-control input-underline input-lg"
+                                        placeholder="Add staff title (i.e. Hairdresser) viewable in online booking only (optional)">
+                                    <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
+                                </div>
+                            </div>
+        
+                            <div class="row form-group">
+                                <div class="col-sm-12">
+                                    <label class="control-label">NOTES</label>
+                                    <textarea class="form-control" [(ngModel)]="form.notes" name="notes"
+                                        placeholder="Add private notes viewable in staff settings only (optional)" rows="10"></textarea>
+                                </div>
+                            </div>
+        
+                            <div class="row form-group">
+                                <div class="col-sm-6">
+                                    <label class="control-label">EMPLOYMENT START DATE</label>
+                                    <input [(ngModel)]="form.employmentStartDate" type="date" name="start-date" class="form-control">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label">EMPLOYMENT END DATE</label>
+                                    <input [(ngModel)]="form.employmentEndDate" type="date" name="end-date" class="form-control">
+                                </div>
+                            </div>
+        
+                          </div>
+                          <div *ngIf="form.apointmentBooking">
+                                <label class="control-label">APPOINTMENT COLOR</label>
+                            </div>
+        
+                      </div>
                     </div>
 
-                    <div class="row form-group">
-                        <div class="col-sm-12">
-                        <label class="control-label">MOBILE NUMBER</label>
-                        <input [(ngModel)]="form.mobileNumber" type="number" name="number" class="form-control input-underline input-lg" placeholder="+84 91 234 56 78">
-                        <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+                <ng-template ngbTabTitle>Services</ng-template>
+                <ng-template ngbTabContent>
+                    <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
+                    craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
+                    cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
+                    yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
+                    shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
+                    sint qui sapiente accusamus tattooed echo park.</p>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Commission">
+                <ng-template ngbTabContent>
+                    
+                    <div class="col-sm-6">
+                        <form role="form">
+                                <div class="col-sm-6">
+                                        <div class="form-group input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">@</span>
+                                                </div>
+                                                <!-- <span class="input-group-addon">@</span> -->
+                                                <input type="text" class="form-control" placeholder="Username">
+                                            </div>
+                                </div>
+                                <div class="col-sm-6"></div>
+                            
+                            </form>
+
                         </div>
-                    </div>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
 
-                    <div class="row form-group">
-                        <div class="col-sm-12">
-                            <label class="control-label">EMAIL</label>
-                            <input [(ngModel)]="form.email" type="email" name="email" class="form-control input-underline input-lg" placeholder="mail@example.com">
-                            <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-sm-12">
-                            <label class="control-label">USER PERMISSION</label>
-                            <select [(ngModel)]="form.userPermission" name="user-permission" class="form-control">
-                                <option selected>No Access</option>
-                                <option>Basic</option>
-                                <option>Low</option>
-                                <option>Medium</option>
-                                <option>High</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-sm-12 btn-switch">
-                            <label class="switch">
-                                <input type="checkbox" [(ngModel)]="form.apointmentBooking" name="apointmentBooking">
-                                <span class="slider round"></span>
-                            </label>
-                            <label class="control-label">ENABLE APPOINTMENT BOOKINGS</label>
-                        </div>
-                    </div>
-
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="row form-group">
-                        <div class="col-sm-12">
-                            <label class="control-label">STAFF TITLE</label>
-                            <input [(ngModel)]="form.staffTitle" type="text" name="staff-title" class="form-control input-underline input-lg"
-                                placeholder="Add staff title (i.e. Hairdresser) viewable in online booking only (optional)">
-                            <div class="alert alert-danger" [hidden]="!error.email"> {{ error.email }} </div>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-sm-12">
-                            <label class="control-label">NOTES</label>
-                            <textarea class="form-control" [(ngModel)]="form.notes" name="notes"
-                                placeholder="Add private notes viewable in staff settings only (optional)" rows="10"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-sm-6">
-                            <label class="control-label">EMPLOYMENT START DATE</label>
-                            <input [(ngModel)]="form.employmentStartDate" type="date" name="start-date" class="form-control">
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="control-label">EMPLOYMENT END DATE</label>
-                            <input [(ngModel)]="form.employmentEndDate" type="date" name="end-date" class="form-control">
-                        </div>
-                    </div>
-
-                  </div>
-                  <div *ngIf="form.apointmentBooking">
-                        <label class="control-label">APPOINTMENT COLOR</label>
-                    </div>
-
-              </div>
-            </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light pull-right" (click)="modal.dismiss('Cancel click')"> Cancel </button>
