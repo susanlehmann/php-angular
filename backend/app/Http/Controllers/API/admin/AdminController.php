@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use App\User;
-class AdminController extends Controller
+use App\Http\Controllers\API\APIBaseController as APIBaseController;
+class AdminController extends APIBaseController
 {
+    public $successStatus = 200;
+    
 	public function getlistuser(){
 	    $data['list_user'] = DB::table('users')->get();
 	    return response()->json($data);

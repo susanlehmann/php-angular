@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {NgbModal, NgbModalRef, ModalDismissReasons, NgbModalOptions, NgbDatepicker} from '@ng-bootstrap/ng-bootstrap';
+import * as $ from 'jquery';
+
 @Component({
 selector: 'app-users',
 templateUrl: './users.component.html',
@@ -10,11 +12,23 @@ animations: [routerTransition()]
 })
 
 export class UsersComponent implements OnInit {
-    public form: Staff = <Staff>{};
 
-    public error = [];
+    public form: Staff = <Staff>{};
+  // public form = {
+  //     email: null,
+  //     name: null,
+  //     password: null,
+  //     password_confirmation: null
+  //   };
+
+  public formedit = {
+      email: null,
+      name: null,
+    };
 
   modalOptions: NgbModalOptions;
+  public error = [];
+
 	closeResult: string;
   listusers: any;
   
@@ -22,9 +36,9 @@ export class UsersComponent implements OnInit {
 	private http: HttpClient,
 	private modal: NgbModal, 
 	) {
-		this.getProducts();
-  }
-  
+		this.getUser();
+	}
+
   open(content: NgbModalRef) {
     this.modal.open(content, this.modalOptions).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -50,9 +64,9 @@ export class UsersComponent implements OnInit {
     };
 	}
 	
-	getProducts() {
+	getUser() {
 		// console.log('Get Products and Update Table');
-		return this.http.get('http://localhost:8000/list-user')
+		return this.http.get('http://localhost:8000/api/list-user')
 		.subscribe((listusers:any) => {
 			console.log(listusers.list_user);
 		    this.listusers = listusers.list_user;
@@ -78,13 +92,35 @@ export class UsersComponent implements OnInit {
           });
       }
 
+  Crete_user() {
+    this.http.post('http://localhost:8000/api/create_user',this.form)
+    .subscribe((data:any) => {
+            this.getUser();
+            $('.close-modal-createuser').click();
+        });
+    }
+
+  show_user(id) {
+    this.http.post('http://localhost:8000/api/show_user',{id : id})
+    .subscribe((data:any) => {
+            this.formedit = data.find_user;
+        });
+    }
+
+  update_user() {
+    this.http.post('http://localhost:8000/api/update_user',this.formedit)
+    .subscribe((data:any) => {
+            this.getUser();
+            $('.close-modal-update-user').click();
+        });
+    }
+
 	dalete_user(id) {
 		// console.log('Get Products and Update Table');
-		return this.http.post('http://localhost:8000/delete',{'id':id})
-		.subscribe((listusers:any) => {
-			// console.log(listusers.list_user);
-		 //    this.listusers = listusers.list_user;
-		});
+		return this.http.post('http://localhost:8000/api/delete_user',{'id':id})
+      .subscribe((data:any) => {
+              this.getUser();
+          });
 	}
 }
 

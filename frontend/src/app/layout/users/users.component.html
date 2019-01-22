@@ -25,12 +25,12 @@
                                 <td>Admintrolr</td>
                                 <td>
                                   <label class="switch">
-                                    <input type="checkbox">
+                                    <input type="checkbox" checked="checked">
                                     <span class="slider round"></span>
                                   </label>
                                 </td>
                                 <td>
-                                  <button _ngcontent-c31="" class="btn btn-sm btn-success" type="button"><i class="fa fa-pencil-square-o"></i></button>
+                                  <button _ngcontent-c31="" class="btn btn-sm btn-success" type="button" (click)="open(edit_user)" (click)="show_user(user.id)"><i class="fa fa-pencil-square-o"></i></button>
                                   <button _ngcontent-c31="" class="btn btn-sm btn-danger" type="button"  (click)="dalete_user(user.id)"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>
@@ -185,7 +185,6 @@
                 </ng-template>
             </ngb-tab>
         </ngb-tabset>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light pull-right" (click)="modal.dismiss('Cancel click')"> Cancel </button>
