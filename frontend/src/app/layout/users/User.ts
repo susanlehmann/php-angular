@@ -1,17 +1,16 @@
-import { temporaryDeclaration } from "@angular/compiler/src/compiler_util/expression_converter";
-
 export class User {
-    id: string;
+    id: number;
     firstName: string;
     lastName: string;
     staffTitle: string;
     mobileNumber: number;
     email: string;
+    password: string;
     userPermission: string;
     notes: string;
     employmentStartDate: string;
     employmentEndDate: string;
-    apointmentBooking: string;
+    apointmentBooking: boolean;
     apointmentColor: string
     services: [];
     commissions: Commission;
@@ -22,7 +21,6 @@ export class User {
     }
 
     new() {
-      this.id = this.create_UUID();
       this.firstName = "";
       this.lastName = "";
       this.staffTitle = "";
@@ -32,7 +30,7 @@ export class User {
       this.notes = "";
       this.employmentStartDate = "";
       this.employmentEndDate = "";
-      this.apointmentBooking = "";
+      this.apointmentBooking = false;
       this.apointmentColor = "";
       this.services = [];
       if (this.commissions === undefined) {
@@ -42,31 +40,35 @@ export class User {
       }
     }
 
-    toDto() {
+    toDto(): any {
       return {
         id: this.id,
-        name: this.firstName,
+        firstName: this.firstName,
+        lastName: this.lastName,
         email: this.email,
-        password: this.lastName,
-        password_confirmation: this.lastName,
+        phone : this.mobileNumber,
+        ennable_appointment_bookig : this.apointmentBooking ? 1 : 0,
+        notes : this.notes,
+        start_date : this.employmentStartDate,
+        end_date : this.employmentEndDate,
+        appointment_color: this.apointmentColor,
+        dial_code : "",
+        service_commission : this.commissions.service,
+        product_commission : this.commissions.product,
+        voucher_sales_commission : this.commissions.voucherSale,
       };
     }
 
-    updateData(data) {
-      this.id = data.find_user.id;
-      this.firstName = data.find_user.name;
-      this.email = data.find_user.email;
+    updateData(data: any) {
+      const {find_user: {
+        id,
+        name,
+        email
+      }} = data;
+      this.id = id;
+      this.firstName = name;
+      this.email = email;
     }
-
-    create_UUID() {
-      var dt = new Date().getTime();
-      var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-          var r = (dt + Math.random()*16)%16 | 0;
-          dt = Math.floor(dt/16);
-          return (c=='x' ? r :(r&0x3|0x8)).toString(16);
-      });
-      return uuid;
-  }
 
 }
 
@@ -85,4 +87,28 @@ export class Commission {
     this.product = null;
     this.voucherSale = null;
   }
+}
+
+export interface UserDto {
+  find_user: {
+    id : number;
+    firstName : string;
+    lastName : string;
+    email : string;
+    password : string;
+    phone : string;
+    ennable_appointment_booking : number;
+    notes : string;
+    start_date : string;
+    end_date : string;
+    appointment_color : string;
+    dial_code : string;
+    first_login : number;
+    service_commission : number;
+    product_commission : number;
+    voucher_sales_commission : number;
+    sort_order: number;
+    level: number;
+  };
+  
 }
