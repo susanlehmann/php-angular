@@ -4,7 +4,7 @@
             <div class="col-sm-12">
 
                 <div class="card mb-3">
-                    <div class="card-header">List User <button class="btn btn-sm btn-success pull-right" type="button" (click)="open(content)">Thêm mới</button></div>
+                    <div class="card-header">List User <button class="btn btn-sm btn-success pull-right" type="button" (click)="openCreateModal(content)">Thêm mới</button></div>
                     <div class="card-body table-responsive">
                         <table class="table table-hover table-striped">
                             <thead>
@@ -30,7 +30,7 @@
                                   </label>
                                 </td>
                                 <td>
-                                  <button _ngcontent-c31="" class="btn btn-sm btn-success" type="button" (click)="open(edit_user)" (click)="show_user(user.id)"><i class="fa fa-pencil-square-o"></i></button>
+                                  <button _ngcontent-c31="" class="btn btn-sm btn-success" type="button" (click)="openUpdateModal(content, user.id)"><i class="fa fa-pencil-square-o"></i></button>
                                   <button _ngcontent-c31="" class="btn btn-sm btn-danger" type="button"  (click)="dalete_user(user.id)"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>
@@ -42,7 +42,7 @@
 
     <ng-template #content let-modal>
       <div class="modal-header">
-        <h4 class="modal-title col-sm-4 offset-sm-4">Create User</h4>
+        <h4 class="modal-title col-sm-4 offset-sm-4">{{isCreate ? 'Create User' : 'Update user'}}</h4>
         <button type="button" class="col-sm-4 close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>

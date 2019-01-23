@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {NgbModal, NgbModalRef, ModalDismissReasons, NgbModalOptions, NgbDatepicker} from '@ng-bootstrap/ng-bootstrap';
-import * as $ from 'jquery';
+import { User } from './User'
 
 @Component({
 selector: 'app-users',
@@ -13,24 +13,14 @@ animations: [routerTransition()]
 
 export class UsersComponent implements OnInit {
 
-    public form: Staff = <Staff>{};
-  // public form = {
-  //     email: null,
-  //     name: null,
-  //     password: null,
-  //     password_confirmation: null
-  //   };
-
-  public formedit = {
-      email: null,
-      name: null,
-    };
+  public form = new User();
 
   modalOptions: NgbModalOptions;
   public error = [];
 
 	closeResult: string;
   listusers: any;
+  isCreate: boolean;
   
 	constructor(
 	private http: HttpClient,
@@ -39,12 +29,34 @@ export class UsersComponent implements OnInit {
 		this.getUser();
 	}
 
-  open(content: NgbModalRef) {
+	ngOnInit() {
+    this.modalOptions = {
+      backdrop: 'static',
+      size: 'lg'
+    };
+  }
+  
+  openModal(content: NgbModalRef) {
     this.modal.open(content, this.modalOptions).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  openCreateModal(content: NgbModalRef) {
+    this.isCreate = true;
+    this.form.new();
+    this.openModal(content);
+  }
+
+  openUpdateModal(content: NgbModalRef, userId) {
+    this.isCreate = false;
+    this.http.post('http://localhost:8000/api/show_user',{id : userId})
+    .subscribe((data:any) => {
+            this.form.updateData(data);
+            this.openModal(content);
+        });
   }
 
   private getDismissReason(reason: any): string {
@@ -56,13 +68,6 @@ export class UsersComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-
-	ngOnInit() {
-    this.modalOptions = {
-      backdrop: 'static',
-      size: 'lg'
-    };
-	}
 	
 	getUser() {
 		// console.log('Get Products and Update Table');
@@ -74,44 +79,27 @@ export class UsersComponent implements OnInit {
 	}
 	
     onSubmit() {
-      console.table(this.form);
-      return;
-        // console.log(this.form);
-        // this.httpcall.signup(this.form).subscribe(
-        //   data => this.handleResponse(data),
-        //   error => this.handleError(error)
-        // );
-      this.http.post('http://localhost:8000/api/create_user',this.form,{
-              headers: new HttpHeaders({
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-              })
-      }).subscribe((listusers:any) => {
-            console.log(listusers.list_user);
-              this.listusers = listusers.list_user;
-          });
+      const dto = this.form.toDto();
+      console.table(dto);
+      if (this.isCreate) {
+        this.Crete_user(dto);
+      } else {
+        this.update_user(dto);
+      }
+      this.modal.dismissAll();
       }
 
-  Crete_user() {
-    this.http.post('http://localhost:8000/api/create_user',this.form)
+  Crete_user(user) {
+    this.http.post('http://localhost:8000/api/create_user',user)
     .subscribe((data:any) => {
             this.getUser();
-            $('.close-modal-createuser').click();
         });
     }
 
-  show_user(id) {
-    this.http.post('http://localhost:8000/api/show_user',{id : id})
-    .subscribe((data:any) => {
-            this.formedit = data.find_user;
-        });
-    }
-
-  update_user() {
-    this.http.post('http://localhost:8000/api/update_user',this.formedit)
+  update_user(user) {
+    this.http.get('http://localhost:8000/api/update_user',user)
     .subscribe((data:any) => {
             this.getUser();
-            $('.close-modal-update-user').click();
         });
     }
 
@@ -122,26 +110,4 @@ export class UsersComponent implements OnInit {
               this.getUser();
           });
 	}
-}
-
-interface Staff {
-    firstName: string;
-    lastName: string;
-    staffTitle: string;
-    mobileNumber: number;
-    email: string;
-    userPermission: string;
-    notes: string;
-    employmentStartDate: string;
-    employmentEndDate: string;
-    apointmentBooking: string;
-    apointmentColor: string
-    services: [];
-    commissions: Commission;
-}
-
-interface Commission {
-  service: string;
-  product: string;
-  voucherSale: string;
 }
