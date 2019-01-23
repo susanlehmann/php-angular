@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
 
     public form = {
         email: null,
-        name: null,
+        firstName: null,
         password: null,
         password_confirmation: null
       };
