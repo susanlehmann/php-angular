@@ -4,7 +4,7 @@ $topnav-background-color: #007FC9;
     border-radius: 0;
     position: fixed;
     z-index: 1000;
-    top: 56px;
+    top: 49px;
     left: 235px;
     width: 235px;
     margin-left: -235px;
@@ -132,7 +132,7 @@ $topnav-background-color: #007FC9;
 }
 @media screen and (max-width: 992px) {
     .sidebar {
-        top: 54px;
+        // top: 54px;
         left: 0px;
     }
 }
