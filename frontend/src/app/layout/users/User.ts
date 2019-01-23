@@ -71,9 +71,9 @@ export class User {
 }
 
 export class Commission {
-  service: string;
-  product: string;
-  voucherSale: string;
+  service: number;
+  product: number;
+  voucherSale: number;
 
   constructor() {
     this.new();
@@ -81,8 +81,8 @@ export class Commission {
   }
 
   new() {
-    this.service = "";
-    this.product = "";
-    this.voucherSale = "";
+    this.service = null;
+    this.product = null;
+    this.voucherSale = null;
   }
 }

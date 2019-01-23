@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {NgbModal, NgbModalRef, ModalDismissReasons, NgbModalOptions, NgbDatepicker} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import { User } from './User'
 
 @Component({

@@ -126,19 +126,27 @@
                             <div class="row form-group">
                                 <div class="col-sm-12">
                                     <label class="control-label">NOTES</label>
-                                    <textarea class="form-control" [(ngModel)]="form.notes" name="notes"
-                                        placeholder="Add private notes viewable in staff settings only (optional)" rows="10"></textarea>
+                                    <textarea class="form-control form-text-area" [(ngModel)]="form.notes" name="notes"
+                                        placeholder="Add private notes viewable in staff settings only (optional)" rows="9"></textarea>
                                 </div>
                             </div>
         
                             <div class="row form-group">
                                 <div class="col-sm-6">
                                     <label class="control-label">EMPLOYMENT START DATE</label>
-                                    <input [(ngModel)]="form.employmentStartDate" type="date" name="start-date" class="form-control">
+                                    <input class="form-control" placeholder="yyyy-mm-dd" (click)="dst.toggle()"
+                                        name="start-date" [(ngModel)]="form.employmentStartDate" ngbDatepicker #dst="ngbDatepicker">
+                                    <!-- <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="dst.toggle()" type="button"></button>
+                                    </div> -->
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="control-label">EMPLOYMENT END DATE</label>
-                                    <input [(ngModel)]="form.employmentEndDate" type="date" name="end-date" class="form-control">
+                                    <input class="form-control" placeholder="yyyy-mm-dd" (click)="de.toggle()"
+                                        name="start-date" [(ngModel)]="form.employmentEndDate" ngbDatepicker #de="ngbDatepicker">
+                                    <!-- <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="de.toggle()" type="button"></button>
+                                    </div> -->
                                 </div>
                             </div>
         
@@ -155,12 +163,26 @@
             <ngb-tab>
                 <ng-template ngbTabTitle>Services</ng-template>
                 <ng-template ngbTabContent>
-                    <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
-                    craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
-                    cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
-                    yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
-                    shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
-                    sint qui sapiente accusamus tattooed echo park.</p>
+
+                    <br>
+                        <p style="font-size: 12px; color: rgba(98,98,98,.55);">Assign services this staff member can perform.</p>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Select All</label>
+                        </div>
+                        <hr>
+                        <div class="container row">
+                        <div class="col-sm-6 custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                <label class="custom-control-label" for="customCheck2">Blow Dry</label>
+                        </div>
+                        <div class="col-sm-6 custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                <label class="custom-control-label" for="customCheck3">Haircut</label>
+                        </div>
+                    </div>
+                
+                        
                 </ng-template>
             </ngb-tab>
             <ngb-tab title="Commission">
@@ -168,17 +190,38 @@
                     
                     <div class="col-sm-6">
                         <form role="form">
+                            <br>
+                            <div class="row">
                                 <div class="col-sm-6">
+                                        <label class="control-label">SERVICE COMMISSION</label>
                                         <div class="form-group input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon1">@</span>
-                                                </div>
-                                                <!-- <span class="input-group-addon">@</span> -->
-                                                <input type="text" class="form-control" placeholder="Username">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">%</span>
                                             </div>
+                                            <input [(ngModel)]="form.commissions.service" name="service" type="number" class="form-control" placeholder="0.0">
+                                        </div>
                                 </div>
-                                <div class="col-sm-6"></div>
-                            
+                                <div class="col-sm-6">
+                                        <label class="control-label">PRODUCT COMMISSION</label>
+                                        <div class="form-group input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input [(ngModel)]="form.commissions.product" name="product" type="number" class="form-control" placeholder="0.0">
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-sm-6">
+                                            <label class="control-label">VOUCHER SALES COMMISSION</label>
+                                            <div class="form-group input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">%</span>
+                                                </div>
+                                                <input [(ngModel)]="form.commissions.voucherSale" name="voucher" type="number" class="form-control" placeholder="0.0">
+                                            </div>
+                                    </div>
+                            </div>
                             </form>
 
                         </div>
