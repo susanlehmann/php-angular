@@ -97,7 +97,7 @@ export class UsersComponent implements OnInit {
     }
 
   update_user(user) {
-    this.http.get('http://localhost:8000/api/update_user',user)
+    this.http.post('http://localhost:8000/api/update_user',user)
     .subscribe((data:any) => {
             this.getUser();
         });
