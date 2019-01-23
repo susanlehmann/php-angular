@@ -1,10 +1,10 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Users'" [icon]="'fa-users'"></app-page-header>
+    <app-page-header [heading]="'Staff'" [icon]="'fa-users'"></app-page-header>
     <div class="row">
             <div class="col-sm-12">
 
                 <div class="card mb-3">
-                    <div class="card-header">List User <button class="btn btn-sm btn-success pull-right" type="button" (click)="openCreateModal(content)">Thêm mới</button></div>
+                    <div class="card-header">List User <button class="btn btn-sm btn-success pull-right" type="button" (click)="openCreateModal(content)">New Staff</button></div>
                     <div class="card-body table-responsive">
                         <table class="table table-hover table-striped">
                             <thead>
@@ -42,7 +42,7 @@
 
     <ng-template #content let-modal>
       <div class="modal-header">
-        <h4 class="modal-title col-sm-4 offset-sm-4">{{isCreate ? 'Create User' : 'Update user'}}</h4>
+        <h4 class="modal-title col-sm-4 offset-sm-4">{{isCreate ? 'New Staff' : 'Edit Staff'}}</h4>
         <button type="button" class="col-sm-4 close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -230,8 +230,9 @@
         </ngb-tabset>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-light pull-right" (click)="modal.dismiss('Cancel click')"> Cancel </button>
-        <button type="submit" class="btn btn-dark pull-right" [disabled]="!signupForm.valid" > Register </button>
+        <button type="button" class="btn btn-danger" style="justify-content: flex-start" (click)="deleteStaff()"> Delete </button>
+        <button type="button" class="btn btn-light" (click)="modal.dismiss('Cancel click')"> Cancel </button>
+        <button type="submit" class="btn btn-dark" [disabled]="!signupForm.valid" > Register </button>
     </div>
 </form>
 <!--       <div class="modal-footer">

@@ -1,6 +1,4 @@
-import { temporaryDeclaration } from "@angular/compiler/src/compiler_util/expression_converter";
-
-export class User {
+export class Staff {
     id: string;
     firstName: string;
     lastName: string;

@@ -24,6 +24,8 @@
     "@angular/platform-browser-dynamic": "7.0.2",
     "@angular/router": "7.0.2",
     "@ng-bootstrap/ng-bootstrap": "4.0.0",
+    "@ngx-loading-bar/core": "^4.1.1",
+    "@ngx-loading-bar/http-client": "^4.1.1",
     "@ngx-translate/core": "11.0.0",
     "@ngx-translate/http-loader": "4.0.0",
     "chart.js": "2.7.3",

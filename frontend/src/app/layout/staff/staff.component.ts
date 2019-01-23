@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {NgbModal, NgbModalRef, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
-import { User } from './User'
+import { Staff } from './Staff';
 
 @Component({
-selector: 'app-users',
-templateUrl: './users.component.html',
-styleUrls: ['./users.component.scss'],
+selector: 'app-staff',
+templateUrl: './staff.component.html',
+styleUrls: ['./staff.component.scss'],
 animations: [routerTransition()]
 })
 
-export class UsersComponent implements OnInit {
+export class StaffComponent implements OnInit {
 
-  public form = new User();
+  public form = new Staff();
 
   modalOptions: NgbModalOptions;
   public error = [];
@@ -21,6 +21,7 @@ export class UsersComponent implements OnInit {
 	closeResult: string;
   listusers: any;
   isCreate: boolean;
+  selectedId: string;
   
 	constructor(
 	private http: HttpClient,
@@ -52,6 +53,7 @@ export class UsersComponent implements OnInit {
 
   openUpdateModal(content: NgbModalRef, userId) {
     this.isCreate = false;
+    this.selectedId = userId;
     this.http.post('http://localhost:8000/api/show_user',{id : userId})
     .subscribe((data:any) => {
             this.form.updateData(data);
@@ -70,10 +72,8 @@ export class UsersComponent implements OnInit {
   }
 	
 	getUser() {
-		// console.log('Get Products and Update Table');
 		return this.http.get('http://localhost:8000/api/list-user')
 		.subscribe((listusers:any) => {
-			console.log(listusers.list_user);
 		    this.listusers = listusers.list_user;
 		});
 	}
@@ -104,10 +104,14 @@ export class UsersComponent implements OnInit {
     }
 
 	dalete_user(id) {
-		// console.log('Get Products and Update Table');
 		return this.http.post('http://localhost:8000/api/delete_user',{'id':id})
       .subscribe((data:any) => {
               this.getUser();
           });
-	}
+  }
+  
+  deleteStaff() {
+    this.dalete_user(this.selectedId);
+    this.modal.dismissAll();
+  }
 }

@@ -12,6 +12,8 @@ import { AuthGuard } from './shared';
 import { HttpcallService } from './shared/services/httpcall.service';
 import { AuthService } from './shared/services/auth.service';
 import { TokenService } from './shared/services/token.service';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
     /* for development
@@ -36,6 +38,7 @@ export const createTranslateLoader = (http: HttpClient) => {
                 deps: [HttpClient]
             }
         }),
+        LoadingBarHttpClientModule,
         AppRoutingModule
     ],
     declarations: [AppComponent],
