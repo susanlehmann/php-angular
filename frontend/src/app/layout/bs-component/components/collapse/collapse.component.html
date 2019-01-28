@@ -1,22 +1,60 @@
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card mb-3">
-            <div class="card-header">Collapse</div>
-            <div class="card-body">
-                <p>
-                    <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
-                        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-                        Toggle
-                    </button>
-                </p>
-                <div id="collapseExample" [ngbCollapse]="isCollapsed">
-                    <div class="card">
-                        <div class="card-body">
-                            You can collapse this card by clicking Toggle
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+<button type="button" class="btn btn-outline-primary" (click)="isCollapsed1 = !isCollapsed1" [attr.aria-expanded]="!isCollapsed1" aria-controls="collapse1">{{ group1 }}</button>
+<div id="collapse1" [ngbCollapse]="isCollapsed1">
+  <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown" style="float: right;">
+    <button class="btn btn-outline-danger" ngbDropdownToggle><i class="fa fa-list"></i></button>
+    <div class="dropdown-menu" ngbDropdownMenu>
+      <button class="dropdown-item">One</button>
+      <div class="dropdown-divider"></div>
+      <button class="dropdown-item">two</button>
+      <div class="dropdown-divider"></div>
+      <button class="dropdown-item">three</button>
     </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <p>{{ service1 }}</p>
+      <p>{{ service2 }}</p>
+    </div>
+  </div>
 </div>
+<button type="button" class="btn btn-outline-primary" (click)="isCollapsed2 = !isCollapsed2" [attr.aria-expanded]="!isCollapsed2" aria-controls="collapse2">{{ group2 }}</button>
+<div id="collapse2" [ngbCollapse]="isCollapsed2">
+  <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown" style="float: right;">
+    <button class="btn btn-outline-danger" ngbDropdownToggle><i class="fa fa-list"></i></button>
+    <div class="dropdown-menu" ngbDropdownMenu>
+      <button class="dropdown-item">One</button>
+      <button class="dropdown-item">two</button>
+      <button class="dropdown-item">three</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <p>{{ service3 }}</p>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn btn-outline-primary" (click)="isCollapsed3 = !isCollapsed3" [attr.aria-expanded]="!isCollapsed3" aria-controls="collapse3">{{ group3 }}</button>
+<div id="collapse3" [ngbCollapse]="isCollapsed3">
+  <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown" style="float: right;">
+    <button class="btn btn-outline-danger" ngbDropdownToggle><i class="fa fa-list"></i></button>
+    <div class="dropdown-menu" ngbDropdownMenu>
+      <button class="dropdown-item">One</button>
+      <button class="dropdown-item">two</button>
+      <button class="dropdown-item">three</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <p>{{ service4 }}</p>
+    </div>
+  </div>
+</div>
+<div (mouseover)="changeText=true" (mouseout)="changeText=false">
+  <span *ngIf="!changeText"><i class="fa fa-american-sign-language-interpreting fa-5x right_position " aria-hidden="true"> </i></span>
+  <span *ngIf="changeText">
+    <button class="right_position">demo1</button>
+    <button class="right_position">demo2</button>
+  </span>
+</div>
+
